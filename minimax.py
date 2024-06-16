@@ -11,8 +11,14 @@ class Game():
             ['--', '--', '--', '--', '--', '--', '--', '--'],
             ['--', '--', '--', '--', '--', '--', '--', '--'],
             ['wPawn', 'wPawn', 'wPawn', 'wPawn', 'wPawn', 'wPawn', 'wPawn', 'wPawn'],
-            ['wRook', 'wHorse', 'wB', 'wQueen', 'wKing', 'wBishop', 'wHorse', 'wRook']
+            ['wRook', 'wHorse', 'wBishop', 'wQueen', 'wKing', 'wBishop', 'wHorse', 'wRook']
         ])
         
         self.whiteToMove = True
         self.moveLog = []
+        
+        
+class Move():
+    def __init__(self, start, end, board):
+        pass
+        
