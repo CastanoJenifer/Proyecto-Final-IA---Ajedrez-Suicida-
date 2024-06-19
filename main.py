@@ -47,7 +47,13 @@ def main():
                 else:
                     sqSelected = (row,col)
                     playerClicks.append(sqSelected)
-                
+                if len(playerClicks) == 2:
+                    move = Move(playerClicks[0], playerClicks[1],obj.board)
+                    print(move.getChessNotation())
+                    obj.makeMove(move)
+                    sqSelected = ()
+                    playerClicks = []
+                   
         
         drawGame(screen,obj)
         clock.tick(max_fps)
