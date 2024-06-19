@@ -1,4 +1,5 @@
-"""import pygame as p
+"""
+import pygame as p
 from minimax import Game 
 from minimax import Move
 
@@ -78,7 +79,8 @@ def drawPieces(screen, board):
 if __name__ == '__main__':
     main()
 
-    print('holas prros siiiiiii')"""
+    print('holas prros siiiiiii')
+"""
     
 import chess
 
