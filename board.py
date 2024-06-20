@@ -15,12 +15,11 @@ class Game():
         ])
         
         self.whiteToMove = True
-        self.moveLog = []
+
         
     def makeMove(self, move):
         self.board[move.startRow][move.startColumn] = "--"
         self.board[move.endRow][move.endColumn] = move.pieceMoved
-        self.moveLog.append(move.pieceMoved)
         self.whiteToMove = not self.whiteToMove
         
         

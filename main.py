@@ -47,7 +47,8 @@ def main():
     # verificar ganador
     blancas = False
     negras = False
-    
+     
+                       
     # Inicio del bucle
     while running:
         for e in p.event.get():
@@ -59,6 +60,9 @@ def main():
                 elif outcome.winner == chess.BLACK:
                     negras = True
                     running = False # terminar bucle si ya se tiene un ganador
+            if e.type == p.QUIT:
+                p.time.wait(1000)
+                p.quit()         
             if obj.whiteToMove == False: # Si el turno de las blancas está en False
                 movement = machine_move(boardd.copy()) # El turno lo tiene la IA
                 if movement:  
@@ -66,7 +70,6 @@ def main():
                         boardd.push(chess.Move.from_uci(movement))
                         start, end = inverseChessNotation(movement)
                         move = Move(start, end, obj.board)
-                        print(move.getChessNotation())
                         obj.makeMove(move)
                         
                     else:
@@ -92,7 +95,6 @@ def main():
                         if obj.board[playerClicks[1][0]][playerClicks[1][1]][0] != "w":
                             move = Move(playerClicks[0], playerClicks[1],obj.board)
                             if str(move.getChessNotation()) in [str(mov) for mov in boardd.legal_moves]:
-                                print(move.getChessNotation())
                                 obj.makeMove(move)
                                 boardd.push(chess.Move.from_uci(move.getChessNotation()))
                             else:
@@ -105,16 +107,17 @@ def main():
         drawGame(screen,obj)
         clock.tick(max_fps)
         p.display.flip()
+        
+        
+        
 
     if blancas:
         show_small_screen("Ganaron las piezas blancas", font)
+        p.time.wait(6000)
     elif negras:
         show_small_screen("Ganaron las piezas negras", font)
-    
-    while True:
-        for event in p.event.get():
-            if event.type == p.QUIT:
-                p.quit()            
+        p.time.wait(6000)
+              
 
 def machine_move(boardCopy):
     max = -99999
@@ -140,8 +143,8 @@ def machine_move(boardCopy):
 
 # Funcion Poda Alfa-Beta
 def alphabeta_pruning(boardCopy,movement,depth,alpha,beta,maximizingPlayer):
-    if depth == 0 or boardCopy.is_game_over(): #Si se llega a la profundidad indicada o si perdí
-        return evaluateBoard(boardCopy,movement) # retorna el valor heuristico del nodo
+    if depth == 0 or boardCopy.is_game_over(): 
+        return evaluateBoard(boardCopy,movement) 
     
     boardCopy.push(chess.Move.from_uci(movement)) # Hace el movimiento
     legal_moves = [str(mov) for mov in boardCopy.legal_moves] # Muestra todos los movimientos legales del nuevo tablero
@@ -150,7 +153,7 @@ def alphabeta_pruning(boardCopy,movement,depth,alpha,beta,maximizingPlayer):
         value = -999999
         for move in legal_moves:
             value = max(value,alphabeta_pruning(boardCopy.copy(),move,depth-1,alpha,beta,False)) 
-            # funcion recursiva para encontrar el valor de cada uno de mis hijos MIN
+            # funcion recursiva para encontrar el valor de cada uno de los hijos MIN
             if value >= beta: # Si mi hijo actual es mayor o igual a beta
                 break # Poda
             alpha = max(alpha,value) # El alfa se actualiza con el mayor valor que se escogió entre los MIN podando
@@ -159,7 +162,7 @@ def alphabeta_pruning(boardCopy,movement,depth,alpha,beta,maximizingPlayer):
         value = 999999
         for move in legal_moves:
             value = min(value,alphabeta_pruning(boardCopy.copy(),move,depth-1,alpha,beta,True))
-            # funcion recursiva para encontrar el valor de cada uno de mis hijos MAX
+            # funcion recursiva para encontrar el valor de cada uno de los hijos MAX
             if value <= alpha: # Si mi hijo actual es menor o igual a beta 
                 break # Poda
             beta = min(beta,value)
