@@ -49,7 +49,6 @@ class Move():
 
 def inverseChessNotation(notation):
     ranksToRows = {'1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
-    
     filesToCols = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
 
     return (ranksToRows[f'{notation[1]}'],filesToCols[f'{notation[0]}']),(ranksToRows[f'{notation[3]}'],filesToCols[f'{notation[2]}'])
